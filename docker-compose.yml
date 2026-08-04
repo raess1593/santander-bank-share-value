@@ -1,0 +1,8 @@
+services:
+  data-engine:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: santander-data-ingestion-engine
+    volumes:
+      - ./data:/app/data
