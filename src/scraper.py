@@ -1,5 +1,6 @@
-import yfinance as yf
 import pandas as pd
+import yfinance as yf
+
 
 def get_daily_stock_data(ticker: str) -> pd.DataFrame:
     stock = yf.Ticker(ticker)
