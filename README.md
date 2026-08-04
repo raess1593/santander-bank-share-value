@@ -1,31 +1,68 @@
 # santander-bank-share-value
 
-📘 A work-in-progress project to fetch Santander stock price data and, later on, automate storing it in the cloud.
+📘 A work-in-progress pipeline to download Santander stock data, clean it, and store it in Parquet files under the `data/` directory.
 
-## 📌 Current status
+## ✅ Current status
 
-For now, the project only retrieves daily market data using `yfinance` and prints it to the console. The current goal is to keep the implementation small and clear while the data collection flow is being shaped.
+The project currently performs the following steps:
 
-## ▶️ Run it
+1. Downloads daily market data using `yfinance`.
+2. Cleans the dataframe and normalizes its columns.
+3. Saves the result as `data/<ticker>_<date>.parquet`.
 
-The script can be executed directly from the project root.
+## 🧩 Project structure
+
+- `src/scraper.py`: fetches the daily data for the `SAN.MC` ticker.
+- `src/transformer.py`: cleans and prepares the dataframe for storage.
+- `src/main.py`: orchestrates the full pipeline execution.
+- `data/`: directory where generated Parquet files are stored.
+
+## ▶️ Run locally
+
+From the project root:
 
 ```bash
-python src/scraper.py
+uv run src/main.py
 ```
 
-## 📦 Dependencies
+If the virtual environment is already activated, you can also run:
 
-The project currently depends on:
+```bash
+python src/main.py
+```
+
+## 🐳 Run with Docker
+
+The project can also be executed with Docker Compose:
+
+```bash
+docker compose up --build
+```
+
+The container mounts the local `data/` directory so the generated files remain available on the host machine.
+
+## 🧪 Code quality
+
+To format the source code:
+
+```bash
+make lint
+```
+
+## 📦 Requirements
 
 - Python 3.12+
+- `uv` for local dependency management
+- Docker and Docker Compose if you want to run the project in containers
+
+## 📚 Main dependencies
+
 - `pandas`
+- `pyarrow`
 - `yfinance`
 
-## 🚧 Next steps
+## 🚀 Next steps
 
-This README will keep evolving as the project grows:
-
-1. Improve the data extraction flow.
-2. Add persistent storage for the retrieved values.
-3. Automate the full process end to end.
+1. Improve the data extraction flow for broader history or higher frequency.
+2. Add a more robust persistence layer.
+3. Automate the ingestion and storage process end to end.
