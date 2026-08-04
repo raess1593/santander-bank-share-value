@@ -1,0 +1,17 @@
+# Env
+.venv/
+.uv/
+venv/
+env/
+.env
+
+# Python
+__pycache__/
+*.pyc
+
+# Data
+data/
+*.parquet
+
+# Git
+.git/
