@@ -6,7 +6,9 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "black>=26.5.1",
+    "datetime>=6.0",
     "isort>=8.0.1",
     "pandas>=3.0.5",
+    "pyarrow>=25.0.0",
     "yfinance>=1.5.2",
 ]
