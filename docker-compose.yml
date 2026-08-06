@@ -4,5 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: santander-data-ingestion-engine
+    env_file:
+      - .env
     volumes:
       - ./data:/app/data
