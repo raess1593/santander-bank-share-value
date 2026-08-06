@@ -32,4 +32,6 @@ def upload_stock_data_to_s3(file_path: str, s3_bucket_name: str, key_name: str) 
 
 
 if __name__ == "__main__":
-    upload_stock_data_to_s3("data/SAN.MC_2026-08-07.parquet", "my-s3-bucket-name", "2026-08-07.parquet")
+    upload_stock_data_to_s3(
+        "data/SAN.MC_2026-08-07.parquet", "my-s3-bucket-name", "2026-08-07.parquet"
+    )

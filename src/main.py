@@ -27,7 +27,11 @@ def run_pipeline(s3_bucket_name: str, ticker: str = "SAN.MC") -> None:
         print(f"📤 Uploading cleaned data to S3 bucket: {s3_bucket_name}...")
         df.to_parquet(output_file, index=False)
         try:
-            upload_stock_data_to_s3(file_path=output_file, s3_bucket_name=s3_bucket_name, key_name=output_name)
+            upload_stock_data_to_s3(
+                file_path=output_file,
+                s3_bucket_name=s3_bucket_name,
+                key_name=output_name,
+            )
         except Exception as e:
             print(f"❌ An error occurred while uploading to S3: {e}")
             raise e
