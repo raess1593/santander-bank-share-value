@@ -66,3 +66,25 @@ make lint
 1. Improve the data extraction flow for broader history or higher frequency.
 2. Add a more robust persistence layer.
 3. Automate the ingestion and storage process end to end.
+
+## ☁️ Optional: S3 / Cloud storage (configuration)
+
+The project can be extended to upload generated Parquet files to an S3 bucket. The repository includes an example environment file with the variables commonly needed for S3 configuration.
+
+- See the example file: [`.env.example`](.env.example#L1-L4)
+
+Example variables (from `.env.example`):
+
+```
+TICKER=SAN.MC
+S3_BUCKET_NAME=my-s3-bucket-name
+AWS_ACCESS_KEY_ID=your_aws_access_key_id
+AWS_SECRET_ACCESS_KEY=your_aws_secret_access_key
+```
+
+Notes:
+
+- The current codebase saves files to the local `data/` directory. Uploading to S3 is optional and requires implementing an upload step (e.g. using `boto3` or another client) that reads the above environment variables.
+- If you add S3 upload functionality, prefer to keep credentials out of source control and use environment variables or a secrets manager.
+
+If you want, I can add a minimal S3 upload helper and example integration into `src/main.py` on the `s3` branch.
