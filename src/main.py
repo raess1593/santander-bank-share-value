@@ -12,7 +12,7 @@ def run_pipeline(s3_bucket_name: str, ticker: str = "SAN.MC") -> None:
     try:
         print(f"🚀 Running data pipeline for ticker: {ticker}")
 
-        print(f"📥 Fetching daily stock data for {ticker}...")
+        print(f"📥 Fetching daily stock data...")
         df = get_daily_stock_data(ticker=ticker)
 
         print(f"🧹 Cleaning stock data...")
@@ -26,15 +26,13 @@ def run_pipeline(s3_bucket_name: str, ticker: str = "SAN.MC") -> None:
 
         print(f"📤 Uploading cleaned data to S3 bucket: {s3_bucket_name}...")
         df.to_parquet(output_file, index=False)
-        try:
-            upload_stock_data_to_s3(
-                file_path=output_file,
-                s3_bucket_name=s3_bucket_name,
-                key_name=output_name,
-            )
-        except Exception as e:
-            print(f"❌ An error occurred while uploading to S3: {e}")
-            raise e
+        
+        upload_stock_data_to_s3(
+            file_path=output_file,
+            s3_bucket_name=s3_bucket_name,
+            key_name=output_name,
+        )
+
         os.remove(output_file)
 
         print(f"✅ Data pipeline completed successfully for ticker: {ticker}")
