@@ -38,14 +38,23 @@ def run_pipeline(s3_bucket_name: str, ticker: str = "SAN.MC") -> None:
 
         return df
     except Exception as e:
-        print(f"❌ An error occurred: {e}")
+        if e.response["Error"]["Code"] == "NoSuchBucket":
+            print(f"❌ The specified bucket does not exist: {s3_bucket_name}")
+        elif e.response["Error"]["Code"] == "AccessDenied":
+            print(f"❌ Access denied to the specified bucket: {s3_bucket_name}")
+        else:
+            print(f"❌ An error occurred: {e}")
 
 
 if __name__ == "__main__":
     load_dotenv()
 
     s3_bucket_name = os.getenv("S3_BUCKET_NAME")
+    ticker = os.getenv("TICKER")
+
     if not s3_bucket_name:
         print("❌ S3_BUCKET_NAME environment variable is not set.")
+    elif not ticker:
+        print("❌ TICKER environment variable is not set.")
     else:
-        df = run_pipeline(s3_bucket_name=s3_bucket_name, ticker="SAN.MC")
+        df = run_pipeline(s3_bucket_name=s3_bucket_name, ticker=ticker)
